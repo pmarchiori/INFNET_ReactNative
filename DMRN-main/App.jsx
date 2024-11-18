@@ -7,12 +7,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { Alert } from "react-native";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  // URL: https://infnet-reactnative-default-rtdb.firebaseio.com/
+  // URI = URL + RECURSO: https://infnet-reactnative-default-rtdb.firebaseio.com/produtos.json
+  //GET, POST, PUT, PATCH, DELETE
+
+  const url = "https://infnet-reactnative-default-rtdb.firebaseio.com/";
+  const resource = "produtos";
+
   const [produtos, setProdutos] = useState([
     { id: 1, nome: "Arroz", preco: 20.5, local: "Mercado", data: "2024-10-24" },
     {
@@ -84,6 +92,8 @@ export default function App() {
     { id: 5, nome: "Leite", preco: 7.3, local: "Mercado", data: "2024-10-24" },
   ]);
 
+  const [isLoading, setLoading] = useState(false);
+
   const gerarNovoId = (_) => {
     const listaProdutos = [...produtos];
     const ultimoIndice = listaProdutos.length - 1;
@@ -96,10 +106,22 @@ export default function App() {
   };
 
   const onSubmit = (novoProduto) => {
-    const listaProdutos = [...produtos];
-    novoProduto.id = gerarNovoId();
-    listaProdutos.push(novoProduto);
-    setProdutos(listaProdutos);
+    setLoading(true);
+    fetch(`${url}${resource}.json`, {
+      method: "POST",
+      body: JSON.stringify(novoProduto),
+    })
+      .then(async (resp) => {
+        const prod = await resp.json();
+        const listaProdutos = [...produtos];
+        novoProduto.id = prod.name;
+        listaProdutos.push(novoProduto);
+        setProdutos(listaProdutos);
+      })
+      .catch((error) => {
+        Alert.alert(error.message);
+      })
+      .finally((_) => setLoading(false));
   };
 
   // return (
