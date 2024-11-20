@@ -18,111 +18,60 @@ export default function App() {
   // URI = URL + RECURSO: https://infnet-reactnative-default-rtdb.firebaseio.com/produtos.json
   //GET, POST, PUT, PATCH, DELETE
 
-  const url = "https://infnet-reactnative-default-rtdb.firebaseio.com/";
-  const resource = "produtos";
+  //const url = "https://infnet-reactnative-default-rtdb.firebaseio.com/";
+  //const resource = "produtos";
 
-  const [produtos, setProdutos] = useState([
-    { id: 1, nome: "Arroz", preco: 20.5, local: "Mercado", data: "2024-10-24" },
-    {
-      id: 2,
-      nome: "Sabonete",
-      preco: 5.99,
-      local: "Farmácia",
-      data: "2024-10-24",
-    },
-    { id: 3, nome: "Café", preco: 12.75, local: "Mercado", data: "2024-10-24" },
-    {
-      id: 4,
-      nome: "Remédio para dor",
-      preco: 24.0,
-      local: "Farmácia",
-      data: "2024-10-24",
-    },
-    { id: 5, nome: "Leite", preco: 7.3, local: "Mercado", data: "2024-10-24" },
-    { id: 1, nome: "Arroz", preco: 20.5, local: "Mercado", data: "2024-10-24" },
-    {
-      id: 2,
-      nome: "Sabonete",
-      preco: 5.99,
-      local: "Farmácia",
-      data: "2024-10-24",
-    },
-    { id: 3, nome: "Café", preco: 12.75, local: "Mercado", data: "2024-10-24" },
-    {
-      id: 4,
-      nome: "Remédio para dor",
-      preco: 24.0,
-      local: "Farmácia",
-      data: "2024-10-24",
-    },
-    { id: 5, nome: "Leite", preco: 7.3, local: "Mercado", data: "2024-10-24" },
-    { id: 1, nome: "Arroz", preco: 20.5, local: "Mercado", data: "2024-10-24" },
-    {
-      id: 2,
-      nome: "Sabonete",
-      preco: 5.99,
-      local: "Farmácia",
-      data: "2024-10-24",
-    },
-    { id: 3, nome: "Café", preco: 12.75, local: "Mercado", data: "2024-10-24" },
-    {
-      id: 4,
-      nome: "Remédio para dor",
-      preco: 24.0,
-      local: "Farmácia",
-      data: "2024-10-24",
-    },
-    { id: 5, nome: "Leite", preco: 7.3, local: "Mercado", data: "2024-10-24" },
-    { id: 1, nome: "Arroz", preco: 20.5, local: "Mercado", data: "2024-10-24" },
-    {
-      id: 2,
-      nome: "Sabonete",
-      preco: 5.99,
-      local: "Farmácia",
-      data: "2024-10-24",
-    },
-    { id: 3, nome: "Café", preco: 12.75, local: "Mercado", data: "2024-10-24" },
-    {
-      id: 4,
-      nome: "Remédio para dor",
-      preco: 24.0,
-      local: "Farmácia",
-      data: "2024-10-24",
-    },
-    { id: 5, nome: "Leite", preco: 7.3, local: "Mercado", data: "2024-10-24" },
-  ]);
+  // const [produtos, setProdutos] = useState([
+  //   { id: 1, nome: "Arroz", preco: 20.5, local: "Mercado", data: "2024-10-24" },
+  //   {
+  //     id: 2,
+  //     nome: "Sabonete",
+  //     preco: 5.99,
+  //     local: "Farmácia",
+  //     data: "2024-10-24",
+  //   },
+  //   { id: 3, nome: "Café", preco: 12.75, local: "Mercado", data: "2024-10-24" },
+  //   {
+  //     id: 4,
+  //     nome: "Remédio para dor",
+  //     preco: 24.0,
+  //     local: "Farmácia",
+  //     data: "2024-10-24",
+  //   },
+  //   { id: 5, nome: "Leite", preco: 7.3, local: "Mercado", data: "2024-10-24" },
+  // ]);
 
-  const [isLoading, setLoading] = useState(false);
+  // const [isLoading, setLoading] = useState(false);
 
-  const gerarNovoId = (_) => {
-    const listaProdutos = [...produtos];
-    const ultimoIndice = listaProdutos.length - 1;
-    if (ultimoIndice > 0) {
-      const ultimoProd = listaProdutos[ultimoIndice];
-      const ultimoId = ultimoProd.id;
-      return ultimoId + 1;
-    }
-    return 1;
-  };
+  // const gerarNovoId = (_) => {
+  //   const listaProdutos = [...produtos];
+  //   const ultimoIndice = listaProdutos.length - 1;
+  //   if (ultimoIndice > 0) {
+  //     const ultimoProd = listaProdutos[ultimoIndice];
+  //     const ultimoId = ultimoProd.id;
+  //     return ultimoId + 1;
+  //   }
+  //   return 1;
+  // };
 
-  const onSubmit = (novoProduto) => {
-    setLoading(true);
-    fetch(`${url}${resource}.json`, {
-      method: "POST",
-      body: JSON.stringify(novoProduto),
-    })
-      .then(async (resp) => {
-        const prod = await resp.json();
-        const listaProdutos = [...produtos];
-        novoProduto.id = prod.name;
-        listaProdutos.push(novoProduto);
-        setProdutos(listaProdutos);
-      })
-      .catch((error) => {
-        Alert.alert(error.message);
-      })
-      .finally((_) => setLoading(false));
-  };
+  // const onSubmit = (novoProduto) => {
+  //   setLoading(true);
+  //   fetch(`${url}${resource}.json`, {
+  //     method: "POST",
+  //     body: JSON.stringify(novoProduto),
+  //   })
+  //     .then(async (resp) => {
+  //       const prod = await resp.json();
+  //       const listaProdutos = [...produtos];
+  //       novoProduto.id = prod.name;
+  //       listaProdutos.push(novoProduto);
+  //       setProdutos(listaProdutos);
+  //     })
+  //     .catch((error) => {
+  //       Alert.alert(error.message);
+  //     })
+  //     .finally((_) => setLoading(false));
+  // };
 
   // return (
   //   <NavigationContainer>
@@ -192,16 +141,15 @@ export default function App() {
             title: "Lista de Produtos",
           })}
         >
-          {(props) => <ProdutosListScreen {...props} produtos={produtos} />}
+          {(props) => <ProdutosListScreen {...props} />}
         </Stack.Screen>
         <Stack.Screen
           name="ProdutoForm"
           options={() => ({
             title: "Novo Produto",
           })}
-        >
-          {(_) => <ProdutoFormScreen onSubmit={onSubmit} />}
-        </Stack.Screen>
+          component={ProdutoFormScreen}
+        />
         <Stack.Screen
           name="ProdutoShow"
           options={() => ({
