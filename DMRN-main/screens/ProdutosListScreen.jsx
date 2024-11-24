@@ -38,7 +38,15 @@ export default function ProdutosListScreen({ navigation }) {
       .finally(setLoading(false)); //independe de como retorna
   }, []);
 
-  const action = (produto) => {
+  const actionRemove = (produto) => {
+    setLoading(true);
+    //remover da API
+    //remover da lista local
+    setProdutos(produtos.filter((prod) => prod.id != produto.id));
+    setLoading(false);
+  };
+
+  const actionShow = (produto) => {
     navigation.navigate("ProdutoShow", produto);
   };
 
@@ -48,7 +56,11 @@ export default function ProdutosListScreen({ navigation }) {
       {!isLoading && message && <Text>{message}</Text>}
       {!isLoading && produtos && (
         <View style={styles.listContainer}>
-          <ProdutoList produtos={produtos} action={action} />
+          <ProdutoList
+            produtos={produtos}
+            actionRemove={actionRemove}
+            actionShow={actionShow}
+          />
         </View>
       )}
       {!isLoading && produtos.length == 0 && (

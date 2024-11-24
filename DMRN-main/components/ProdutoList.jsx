@@ -1,11 +1,34 @@
-import { View, Text, Pressable, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  FlatList,
+  StyleSheet,
+  Platform,
+} from "react-native";
 import ProdutoCard from "./ProdutoCard";
 
-export default function ProdutoList({ produtos, action }) {
+export default function ProdutoList({ produtos, actionRemove, actionShow }) {
+  // const createItemView = ({ item }) => (
+  //   <Pressable
+  //     style={({ pressed }) => [
+  //       {
+  //         backgroundColor: pressed ? "#f1faee" : "#f9f7f3",
+  //       },
+  //       styles.pressableContainer,
+  //     ]}
+  //     onPress={() => action(item)}
+  //   >
+  //     <ProdutoCard prod={item} />
+  //   </Pressable>
+  // );
+
   const createItemView = ({ item }) => (
-    <Pressable onPress={() => action(item)}>
-      <ProdutoCard prod={item} />
-    </Pressable>
+    <ProdutoCard
+      prod={item}
+      actionRemove={actionRemove}
+      actionShow={actionShow}
+    />
   );
 
   return (
@@ -23,3 +46,14 @@ export default function ProdutoList({ produtos, action }) {
     // </View>
   );
 }
+
+const styles = StyleSheet.create({
+  pressableContainer: {
+    borderRadius: 5,
+    ...Platform.select({
+      android: { marginTop: 10 },
+      ios: { marginTop: 15 },
+      web: { marginTop: 20 },
+    }),
+  },
+});
